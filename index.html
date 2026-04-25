@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCD Elektronik Hesaplayıcı </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>⚡ HCD ELEKTRONİK HESAPLAYICI</h1>
+        <p>Hızlı, Kesin ve Jilet Gibi Çözümler</p>
+    
+
+
+
+        <header id="anaSayfaBolumu"
+        style="display: flex; justify-content: center; align-items: center; position: relative; padding: 20px; ">
+        <div id="hamburgerBtn"
+        style="position: absolute; left: 20px; font-size: 30px; cursor: pointer; color: white;">☰</div>
+        </header>
+        
+    </header>
+
+    <div id="yanMenu" class="sidebar">
+        <a href="javascript:void(0)" id="kapatBtn" class="kapat-ok">&times;</a>
+        <a href="#anaSayfaBolumu">Ana Sayfa</a>
+        <button class="dropdown-btn">Hesaplayıcılar<span style="float: right;">▼</span></button>
+        <div class="dropdown-container">
+            <a href="#ohmBolumu">OHM Kanunu</a>
+            <a href="#dirençBolumu">Direç kodları</a>
+            <a href="#o-pampBolumu">O-Pamp</a>
+            <a href="#doğrultucuBolumu">Doğrultucu</a>
+        </div>
+
+        <a href="#" class="hakkimda-tetik">Hakkımda</a>
+        <a href="#" class="iletisim-tetik">İletişim</a>
+    </div>
+
+    <main class="modeller-container">
+        
+        <div class="hesap-karti">
+            <h2>Ohm Kanunu (V=I.R)</h2>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 14px;">İki değeri girin, eksik olanı motor kendi bulsun.</p>
+            
+            <input type="number" id="voltaj" placeholder="Voltaj (V) - Volt">
+            <input type="number" id="akim" placeholder="Akım (I) - Amper">
+            <input type="number" id="direnc" placeholder="Direnç (R) - Ohm">
+            
+            <button onclick="hesaplaOhm()">HESAPLA</button>
+            <div id="ohm-sonuc" class="sonuc"></div>
+        </div>
+
+        <div class="hesap-karti">
+            <h2>4 Bant Direnç Oku</h2>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 14px;">Üzerindeki renkleri seç, değeri öğren.</p>
+            
+            <select id="bant1">
+                <option value="1">Kahverengi (1)</option>
+                <option value="2" selected>Kırmızı (2)</option>
+                <option value="3">Turuncu (3)</option>
+                <option value="4">Sarı (4)</option>
+                <option value="5">Yeşil (5)</option>
+                <option value="6">Mavi (6)</option>
+                <option value="7">Mor (7)</option>
+                <option value="8">Gri (8)</option>
+                <option value="9">Beyaz (9)</option>
+            </select>
+
+            <select id="bant2">
+                <option value="0">Siyah (0)</option>
+                <option value="1">Kahverengi (1)</option>
+                <option value="2" selected>Kırmızı (2)</option>
+                <option value="3">Turuncu (3)</option>
+                <option value="4">Sarı (4)</option>
+                <option value="5">Yeşil (5)</option>
+                <option value="6">Mavi (6)</option>
+                <option value="7">Mor (7)</option>
+                <option value="8">Gri (8)</option>
+                <option value="9">Beyaz (9)</option>
+            </select>
+
+            <select id="carpan">
+                <option value="1">Siyah (x1 Ω)</option>
+                <option value="10" selected>Kahverengi (x10 Ω)</option>
+                <option value="100">Kırmızı (x100 Ω)</option>
+                <option value="1000">Turuncu (x1 kΩ)</option>
+                <option value="10000">Sarı (x10 kΩ)</option>
+                <option value="100000">Yeşil (x100 kΩ)</option>
+                <option value="1000000">Mavi (x1 MΩ)</option>
+            </select>
+
+            <select id="tolerans">
+                <option value="5">Altın (±5%)</option>
+                <option value="10">Gümüş (±10%)</option>
+            </select>
+
+            <button onclick="hesaplaRenk()">DİRENCİ OKU</button>
+            <div id="renk-sonuc" class="sonuc"></div>
+        </div>
+        <div class="hesap-karti">
+            <h2>Op-Amp Kazancı ($A_v$)</h2>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 14px;">Eviren/Evirmeyen seç, kazancı gör.</p>
+            
+            <select id="opamp-tipi">
+                <option value="eviren">Eviren (Inverting)</option>
+                <option value="evirmeyen">Evirmeyen (Non-Inverting)</option>
+            </select>
+
+            <input type="number" id="rin" placeholder="Giriş Direnci (Rin) - Ohm">
+            <input type="number" id="rf" placeholder="Geri Besleme Direnci (Rf) - Ohm">
+            
+            <button onclick="hesaplaOpAmp()">KAZANCI BUL</button>
+            <div id="opamp-sonuc" class="sonuc"></div>
+        </div>
+
+        <div class="hesap-karti">
+            <h2>Doğrultucu ($V_{dc}$)</h2>
+            <p style="color: #aaa; margin-bottom: 15px; font-size: 14px;">AC girişini yaz, DC çıkışını gör (İdeal diyot).</p>
+            
+            <input type="number" id="vac" placeholder="Giriş AC Voltajı (Vrms)">
+            
+            <button onclick="hesaplaDogrultucu()">ÇIKIŞI HESAPLA</button>
+            <div id="dogrultucu-sonuc" class="sonuc" style="font-size: 16px;"></div>
+        </div>
+
+
+
+        <div id="modalHakkimda" class="modal">
+    <div class="modal-content" style="text-align: left; max-width: 700px;">
+        <span class="close-btn" onclick="this.closest('.modal').style.display='none'" >&times;</span>
+        <h2 style="border-bottom: 2px solid #cc0000; padding-bottom: 10px; margin-bottom: 20px;">Hasan Can | Geliştirici Kartviziti</h2>
+        
+        <p style="color: #ddd; line-height: 1.8; font-size: 17px; margin-bottom: 15px;">
+            Merhaba, ben <strong>Hasan Can</strong>.18 Yaşindayım ve Düzce'de yaşıyorum. Bir yandan Bolu Üniversitesinde Elektonik Teknolojisi Bölümü
+        eğitimine devam ederken, diğer yandanda dijital dünyanın kapılarını aralayarak web geliştirme alanında kendimi geliştiriyorum.
+        </p>
+        
+        <p style="color: #ddd; line-height: 1.8; font-size: 17px; margin-bottom: 20px;">Gündüzler okul ile, Geceleri ise ekran başinda kodlar
+         ile uğraşıyorum şuan incelediğiniz<strong> HCD Media EH</strong>, bir öğrenci olarak sıfırdan tasarlayıp kodladığım ikinci kişisel projemdir.   
+        </p>
+        
+        <div style="background-color: #111; padding: 15px; border-radius: 8px; border-left: 4px solid #cc0000;">
+            <p style="color: #fff; margin: 0; font-size: 16px; font-style: italic;"> "En büyük motivasyonum; yazdığım kodlar ve üreticeğim
+            projeleri kendi emeğimi sermayeye dönüştürüp o hayalini kurduğum hayattır"            
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="modalIletisim" class="modal">
+    <div class="modal-content" style="text-align: center; max-width: 500px;">
+        <span class="close-btn" onclick="this.closest('.modal').style.display='none'" >&times;</span>
+        <h2 style="border-bottom: 2px solid #cc0000; padding-bottom: 10px; margin-bottom: 20px;">İletişim</h2>
+        
+        <p style="color: #ddd; margin-bottom: 20px; font-size: 16px;">
+            HCD MEDIA HM ile ilgili her türlü görüş, öneri, iş birliği ve projeler için bizimle iletişime geçebilirsiniz.
+        </p>
+        
+        <a href="mailto:hcdmedia.iletisim@gmail.com" style="color: #ff6600; font-size: 18px; font-weight: bold; text-decoration: none; display:
+         inline-block; padding: 15px 25px; background-color: #222; border-radius: 8px; border: 1px solid #444; transition: 0.3s;">
+            ✉️ hcdmedia.iletisim@gmail.com
+        </a>
+    </div>
+</div>
+    </main>
+        <footer style="text-align: center; width: 100%; padding: 20px; margin-top: 40px; color: #888; font-size: 14px;">
+                    <p>&copy;  Tüm Haklar HCD Media'ya aittir.</p>
+                </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
